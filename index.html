@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--LE DÉLICE IVOIRIEN — Site vitrine du restaurant
+       Technologies : HTML5 + CSS3 uniquement (aucun JavaScript) -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le Délice Ivoirien — Restaurant de cuisine ivoirienne à Abidjan</title>
+  <meta name="description" content="Le Délice Ivoirien, restaurant à Abidjan : poulet braisé, poisson braisé, kedjenou, alloco, riz gras et foutou. Commandez ou réservez votre table.">
+  <meta name="theme-color" content="#F26A1B">
+
+  <!-- Petite icône d'onglet (favicon) intégrée directement, sans fichier supplémentaire -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23F26A1B'/%3E%3Ctext x='32' y='45' font-size='38' font-weight='800' text-anchor='middle' fill='%231C1714' font-family='Arial,sans-serif'%3ED%3C/text%3E%3C/svg%3E">
+
+  <!-- Polices Google : Bricolage Grotesque (titres) + Figtree (texte).
+       Si elles ne se chargent pas, le CSS utilise des polices de secours. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- IMPORTANT: on relie ici la feuille de style.
+       Le fichier style.css doit être dans le MÊME dossier que index.html. -->
+  <link rel="stylesheet" href="style/styles.css">
+</head>
+
+<body>
+
+  <!-- Lien d'accessibilité : visible uniquement au clavier (touche Tab) -->
+  <a class="skip-link" href="#menu">Aller au contenu</a>
+
+  <!--
+       A. EN-TÊTE (HEADER) + NAVIGATION
+       Le menu mobile fonctionne SANS JavaScript grâce à une case à
+       cocher cachée (checkbox) pilotée par le CSS. -->
+  <header class="site-header">
+    <div class="container header__inner">
+
+      <!-- Logo -->
+      <a class="logo" href="#accueil" aria-label="Le Délice Ivoirien — retour à l'accueil">
+        <span class="logo__mark" aria-hidden="true">D</span>
+        <span class="logo__text">Le Délice Ivoirien</span>
+      </a>
+
+      <!-- Case à cocher + bouton hamburger (visible seulement sur mobile/tablette) -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Ouvrir ou fermer le menu de navigation">
+      <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span></label>
+
+      <!-- Liens de navigation -->
+      <nav class="nav" aria-label="Navigation principale">
+        <ul class="nav__list">
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#menu">Notre menu</a></li>
+          <li><a href="#apropos">A propos</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a class="btn btn--primary" href="#contact">Commander</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         B. SECTION HERO (grande image d'accueil)
+         L'image est une vraie balise <img> placée en arrière-plan
+         grâce au CSS (object-fit: cover).
+         ============================================================ -->
+    <section class="hero" id="accueil">
+      <img class="hero__img"
+           src="https://images.pexels.com/photos/262945/pexels-photo-262945.jpeg?auto=compress&cs=tinysrgb&w=1920"
+           alt="Poulet grillé et tomates sur un barbecue"
+           fetchpriority="high">
+
+      <div class="container">
+        <div class="hero__content">
+          <h1 class="hero__title">Le goût authentique de la Côte d'Ivoire</h1>
+          <p class="hero__text">
+            Braisé au feu, mijoté longuement, servi généreusement.
+            Le Délice Ivoirien vous accueille à Cocody, au cœur d'Abidjan,
+            pour une cuisine qui a le goût de la maison.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="#menu">Découvrir notre menu</a>
+            <a class="btn btn--ghost btn--lg" href="#contact">Réserver une table</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bandeau décoratif inspiré des tissus (pagnes), fait uniquement en CSS -->
+    <div class="pagne" aria-hidden="true"></div>
+
+
+    <!-- ============================================================
+         C. NOS SPÉCIALITÉS (6 plats sous forme de cartes)
+         ============================================================ -->
+    <section class="section section--cream" id="menu">
+      <div class="container">
+
+        <div class="section__head">
+          <h2>Nos spécialités</h2>
+          <p>Six plats qui font la réputation de la maison, à déguster sur place ou à emporter.</p>
+        </div>
+
+        <div class="dishes">
+
+          <!-- Plat 1 -->
+          <article class="dish">
+            <div class="dish__media">
+              <img src="https://images.pexels.com/photos/34463127/pexels-photo-34463127.jpeg?auto=compress&cs=tinysrgb&w=800"
+                   alt="Poulet grillé servi avec du riz et des tomates fraîches" loading="lazy">
+            </div>
+            <div class="dish__body">
+              <h3 class="dish__name">Poulet grillé</h3>
+              <p class="dish__desc">Demi-poulet mariné puis grillé, servi avec riz, oignons et tomates fraîches.</p>
+              <div class="dish__foot">
+                <p class="dish__price">3 500 FCFA</p>
+                <a class="btn btn--primary btn--sm" href="#contact">Commander</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plat 2 -->
+          <article class="dish">
+            <div class="dish__media">
+              <img src="https://images.pexels.com/photos/5639496/pexels-photo-5639496.jpeg?auto=compress&cs=tinysrgb&w=800"
+                   alt="Poisson grillé garni de citron et de légumes" loading="lazy">
+            </div>
+            <div class="dish__body">
+              <h3 class="dish__name">Pavé de saumon grillé</h3>
+              <p class="dish__desc">saumon grillé servi avec des légumes (brocoli,tomates,cerises ) et des quartiers de citron.</p>
+              <div class="dish__foot">
+                <p class="dish__price">4 000 FCFA</p>
+                <a class="btn btn--primary btn--sm" href="#contact">Commander</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plat 3 -->
+          <article class="dish">
+            <div class="dish__media">
+              <img src="https://images.pexels.com/photos/394324/pexels-photo-394324.jpeg?auto=compress&cs=tinysrgb&w=800"
+                   alt="Bananes plantains mûres" loading="lazy">
+            </div>
+            <div class="dish__body">
+              <h3 class="dish__name">Alloco avec œufs</h3>
+              <p class="dish__desc">Bananes plantains mûres frites, œufs brouillés aux oignons et piment doux.</p>
+              <div class="dish__foot">
+                <p class="dish__price">2 000 FCFA</p>
+                <a class="btn btn--primary btn--sm" href="#contact">Commander</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plat 4 -->
+          <article class="dish">
+            <div class="dish__media">
+              <img src="https://images.pexels.com/photos/1247677/pexels-photo-1247677.jpeg?auto=compress&cs=tinysrgb&w=800"
+                   alt="Poulet grillé accompagné de légumes frais" loading="lazy">
+            </div>
+            <div class="dish__body">
+              <h3 class="dish__name">poisson grillé aux asperges</h3>
+              <p class="dish__desc">Poisson mijoté à l'étouffée avec légumes et épices, cuit lentement pour une chair fondante.</p>
+              <div class="dish__foot">
+                <p class="dish__price">4 500 FCFA</p>
+                <a class="btn btn--primary btn--sm" href="#contact">Commander</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plat 5 -->
+          <article class="dish">
+            <div class="dish__media">
+              <img src="https://images.pexels.com/photos/34463118/pexels-photo-34463118.jpeg?auto=compress&cs=tinysrgb&w=800"
+                   alt="Riz accompagné de poulet grillé et de légumes" loading="lazy">
+            </div>
+            <div class="dish__body">
+              <h3 class="dish__name">Riz gras</h3>
+              <p class="dish__desc">Riz cuit dans une sauce tomate relevée, servi avec du poulet et des légumes.</p>
+              <div class="dish__foot">
+                <p class="dish__price">2 500 FCFA</p>
+                <a class="btn btn--primary btn--sm" href="#contact">Commander</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plat 6 -->
+          <article class="dish">
+            <div class="dish__media">
+              <img src="https://images.pexels.com/photos/15388079/pexels-photo-15388079.jpeg?auto=compress&cs=tinysrgb&w=800"
+                   alt="Viande grillée et légumes dans une assiette" loading="lazy">
+            </div>
+            <div class="dish__body">
+              <h3 class="dish__name">viande grillé</h3>
+              <p class="dish__desc">viande grillé accompagné de patte de piment.</p>
+              <div class="dish__foot">
+                <p class="dish__price">3 500 FCFA</p>
+                <a class="btn btn--primary btn--sm" href="#contact">Commander</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!--
+         D. A PROPOS -->
+    <section class="section section--white" id="apropos">
+      <div class="container about">
+
+        <div class="about__media">
+          <img src="https://images.pexels.com/photos/394333/pexels-photo-394333.jpeg?auto=compress&cs=tinysrgb&w=900"
+               alt="Préparation de plats en cuisine" loading="lazy">
+        </div>
+
+        <div class="about__text">
+          <h2>Une cuisine de famille, ouverte à tous</h2>
+          <p>
+            Le Délice Ivoirien est né d'une envie simple : retrouver à Abidjan
+            le goût des repas du dimanche, quand toute la famille se retrouve
+            autour du même plat.
+          </p>
+          <p>
+            Notre chef, Awa Koné, cuisine comme on lui a appris : le poulet
+            braisé sur la braise, le kedjenou à l'étouffée, la sauce graine
+            qui mijote des heures. Chaque recette respecte la tradition,
+            sans raccourci.
+          </p>
+          <p>
+            Que vous veniez déjeuner entre collègues, dîner en famille ou
+            faire découvrir la Côte d'Ivoire à des amis, il y a une place
+            pour vous à notre table.
+          </p>
+          <a class="btn btn--outline" href="#contact">Venir nous voir</a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         E. GALERIE (grille CSS Grid avec deux photos plus larges)
+         ============================================================ -->
+    <section class="section section--cream" id="galerie">
+      <div class="container">
+
+        <div class="section__head">
+          <h2>La galerie</h2>
+          <p>Un aperçu de ce qui sort de notre cuisine.</p>
+        </div>
+
+        <div class="gallery">
+          <figure class="gallery__item gallery__item--wide">
+            <img src="https://images.pexels.com/photos/106343/pexels-photo-106343.jpeg?auto=compress&cs=tinysrgb&w=1000"
+                 alt="Ailes de poulet grillées avec des herbes fraîches" loading="lazy">
+          </figure>
+          <figure class="gallery__item">
+            <img src="https://images.pexels.com/photos/8890114/pexels-photo-8890114.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="Brochette de viande et de légumes grillés" loading="lazy">
+          </figure>
+          <figure class="gallery__item">
+            <img src="https://images.pexels.com/photos/2418486/pexels-photo-2418486.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="Assiette de poulet grillé avec des légumes" loading="lazy">
+          </figure>
+          <figure class="gallery__item">
+            <img src="https://images.pexels.com/photos/394325/pexels-photo-394325.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="Légumes frais et salsa en préparation" loading="lazy">
+          </figure>
+          <figure class="gallery__item">
+            <img src="https://images.pexels.com/photos/6262255/pexels-photo-6262255.jpeg?auto=compress&cs=tinysrgb&w=700"
+                 alt="Viandes grillées et légumes frais" loading="lazy">
+          </figure>
+          <figure class="gallery__item gallery__item--wide">
+            <img src="https://images.pexels.com/photos/394319/pexels-photo-394319.jpeg?auto=compress&cs=tinysrgb&w=1000"
+                 alt="Salsa de mangue fraîche" loading="lazy">
+          </figure>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!--
+         F. POURQUOI NOUS CHOISIR ? (3 avantages)
+         Les icônes sont de petits SVG intégrés (pas d'emojis). -->
+    <section class="section section--dark" id="pourquoi">
+      <div class="container">
+
+        <div class="section__head">
+          <h2>Pourquoi nous choisir ?</h2>
+          <p>Trois engagements que nous tenons à chaque service.</p>
+        </div>
+
+        <div class="reasons">
+
+          <article class="reason">
+            <div class="reason__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"/>
+                <path d="M5 19c3-5 6-8 10-10"/>
+              </svg>
+            </div>
+            <h3>Des ingrédients frais</h3>
+            <p>Marché du matin, poisson du jour, légumes de saison : nous cuisinons ce que nous avons acheté le jour même.</p>
+          </article>
+
+          <article class="reason">
+            <div class="reason__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 3-6 1 1 2 2 2 3 1-2 1-5 0-8z"/>
+              </svg>
+            </div>
+            <h3>Une cuisine authentique</h3>
+            <p>Recettes de famille, cuisson au charbon et à l'étouffée, piment dosé selon votre goût.</p>
+          </article>
+
+          <article class="reason">
+            <div class="reason__icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M8 14c1.2 1.6 2.5 2.4 4 2.4s2.8-.8 4-2.4"/>
+                <circle cx="9" cy="10" r=".8"/>
+                <circle cx="15" cy="10" r=".8"/>
+              </svg>
+            </div>
+            <h3>Un service de qualité</h3>
+            <p>Un accueil chaleureux, des plats servis bien chauds et une commande ou une réservation sans complication.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!--
+         G. CONTACT
+         Le formulaire est purement visuel : sans JavaScript ni serveur,
+         il n'envoie rien. Voir les explications pour le connecter plus tard. -->
+    <section class="section section--white" id="contact">
+      <div class="container contact">
+
+        <div class="contact__info">
+          <div class="section__head">
+            <h2>Réserver ou commander</h2>
+            <p>Appelez-nous, écrivez-nous ou passez directement à la table. Nous répondons vite.</p>
+          </div>
+
+          <dl class="info">
+            <div class="info__row">
+              <dt>Adresse</dt>
+              <dd>Rue des Jardins, Cocody Deux Plateaux<br>Abidjan, Côte d'Ivoire</dd>
+            </div>
+            <div class="info__row">
+              <dt>Téléphone</dt>
+              <dd><a href="tel:+2250718961384">+225 07 00 00 00 00</a></dd>
+            </div>
+            <div class="info__row">
+              <dt>E-mail</dt>
+              <dd><a href="mailto:contact@delice-ivoirien.ci">adn@delice-ivoirien.ci</a></dd>
+            </div>
+            <div class="info__row">
+              <dt>Horaires</dt>
+              <dd>
+                Lundi au jeudi : 11h – 22h<br>
+                Vendredi et samedi : 11h – 23h30<br>
+                Dimanche : 12h – 21h
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Formulaire de contact (visuel uniquement) -->
+        <form class="form" action="#" method="post">
+          <div class="form__field">
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" placeholder="Ex. Kouassi Yao" autocomplete="name">
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="vous@exemple.com" autocomplete="email">
+            </div>
+            <div class="form__field">
+              <label for="tel">Téléphone</label>
+              <input type="tel" id="tel" name="tel" placeholder="+225 07 00 00 00 00" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="form__field">
+            <label for="objet">Votre demande</label>
+            <select id="objet" name="objet">
+              <option>Réserver une table</option>
+              <option>Passer une commande</option>
+              <option>Organiser un événement</option>
+              <option>Une question</option>
+            </select>
+          </div>
+
+          <div class="form__field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Date, heure, nombre de personnes, plats souhaités…"></textarea>
+          </div>
+
+          <button class="btn btn--primary btn--lg" type="submit">Envoyer le message</button>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!--
+       H. PIED DE PAGE (FOOTER) -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+
+      <div class="footer__brand">
+        <a class="logo logo--light" href="#accueil" aria-label="Le Délice Ivoirien — retour en haut">
+          <span class="logo__mark" aria-hidden="true">D</span>
+          <span class="logo__text">Le Délice Ivoirien</span>
+        </a>
+        <p>La cuisine ivoirienne, comme à la maison, au cœur d'Abidjan.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Liens du pied de page">
+        <h2 class="footer__title">Navigation</h2>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#menu">Notre menu</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__social">
+        <h2 class="footer__title">Suivez-nous</h2>
+        <ul>
+          <li><a href="#" aria-label="Facebook">Facebook</a></li>
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="TikTok">TikTok</a></li>
+          <li><a href="#" aria-label="WhatsApp">WhatsApp</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="container footer__bottom">
+      <p>© 2026 Le Délice Ivoirien. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

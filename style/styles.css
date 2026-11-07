@@ -1,0 +1,905 @@
+/* 
+   LE DÉLICE IVOIRIEN — Feuille de style
+   Approche "mobile d'abord" : le style de base est pensé pour le téléphone,
+   puis les @media (min-width: …) ajoutent les mises en page tablette/ordinateur.
+
+   SOMMAIRE
+   1.  Variables (couleurs, polices, arrondis)
+   2.  Base et réinitialisation
+   3.  Utilitaires (conteneur, sections, titres)
+   4.  Boutons
+   5.  En-tête et navigation
+   6.  Hero
+   7.  Bandeau décoratif
+   8.  Nos spécialités (cartes)
+   9.  À propos
+   10. Galerie
+   11. Pourquoi nous choisir
+   12. Contact et formulaire
+   13. Pied de page
+   14. Tablette (≥ 640px)
+   15. Ordinateur (≥ 960px)
+   16. Préférences d'accessibilité
+    */
+
+
+/* 
+   1. VARIABLES
+   Pour changer l'identité visuelle, modifiez seulement ces valeurs.
+    */
+:root {
+  /* Couleurs */
+  --orange:       #F26A1B;   /* orange chaleureux : boutons, accents */
+  --orange-deep:  #C2410C;   /* orange foncé : texte orange sur fond clair (lisible) */
+  --orange-pale:  #FFE9D6;   /* orange très clair : fond de secours des images */
+  --black:        #1C1714;   /* noir élégant */
+  --ink-soft:     #4A413A;   /* gris-brun pour les paragraphes */
+  --cream:        #FBF4E8;   /* crème */
+  --white:        #FFFFFF;
+
+  /* Typographie */
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body:    "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Arrondis et ombres */
+  --radius-lg:    24px;
+  --radius-md:    16px;
+  --shadow-soft:  0 1px 0 rgba(28, 23, 20, 0.04), 0 10px 30px rgba(28, 23, 20, 0.08);
+  --shadow-lift:  0 2px 0 rgba(28, 23, 20, 0.04), 0 22px 44px rgba(28, 23, 20, 0.16);
+
+  /* Hauteur de l'en-tête (sert au défilement vers les ancres) */
+  --header-h:     72px;
+}
+
+
+/* 
+   2. BASE ET RÉINITIALISATION
+    */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;           /* défilement doux vers les sections */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--black);
+  background: var(--white);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+/* Les sections ne se cachent pas sous l'en-tête fixe quand on clique sur un lien */
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
+
+/* Contour visible au clavier (accessibilité) */
+:focus-visible {
+  outline: 3px solid var(--orange-deep);
+  outline-offset: 3px;
+}
+
+/* Lien "Aller au contenu" : caché, visible seulement au focus clavier */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--black);
+  color: var(--cream);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+
+/* 
+   3. UTILITAIRES
+ */
+.container {
+  width: min(100% - 2.5rem, 1180px);
+  margin-inline: auto;
+}
+
+/* Espacement vertical commun à toutes les sections */
+.section {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+/* Variantes de fond : elles ne changent QUE la couleur */
+.section--white { background: var(--white); }
+.section--cream { background: var(--cream); }
+.section--dark  { background: var(--black); color: var(--cream); }
+
+/* Bloc d'introduction d'une section (titre + phrase) */
+.section__head {
+  max-width: 40rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.section__head h2,
+.about__text h2 {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+}
+.section__head p {
+  margin-top: 0.9rem;
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+}
+.section--dark .section__head p {
+  color: rgba(251, 244, 232, 0.78);
+}
+
+
+/*
+   4. BOUTONS
+   Un bouton de base (.btn) + des variantes de couleur et de taille.
+    */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.6rem;
+  border: 2px solid transparent;
+  border-radius: 999px;               /* bouton bien arrondi */
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease,
+              border-color 0.25s ease, transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Orange avec texte noir -> au survol : noir avec texte orange */
+.btn--primary {
+  background: var(--orange);
+  color: var(--black);
+}
+.btn--primary:hover {
+  background: var(--black);
+  color: var(--orange);
+  border-color: var(--orange);
+  box-shadow: 0 10px 24px rgba(242, 106, 27, 0.35);
+}
+
+/* Contour blanc, pour les fonds sombres (hero) */
+.btn--ghost {
+  border-color: var(--white);
+  color: var(--white);
+}
+.btn--ghost:hover {
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Contour noir, pour les fonds clairs */
+.btn--outline {
+  border-color: var(--black);
+  color: var(--black);
+}
+.btn--outline:hover {
+  background: var(--black);
+  color: var(--cream);
+  box-shadow: 0 10px 24px rgba(28, 23, 20, 0.25);
+}
+
+/* Tailles */
+.btn--sm { padding: 0.6rem 1.15rem; font-size: 0.95rem; }
+.btn--lg { padding: 1rem 2rem; font-size: 1.05rem; }
+
+
+/* 
+   5. EN-TÊTE ET NAVIGATION
+   Mobile : menu déroulant ouvert par la case à cocher cachée.
+   Ordinateur (≥ 960px) : menu horizontal (voir section 15).
+    */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 244, 232, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(28, 23, 20, 0.08);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+}
+
+/* Logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+}
+.logo__mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--orange);
+  color: var(--black);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+.logo__text {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.logo--light {
+  color: var(--cream);
+}
+
+/* La case à cocher est cachée visuellement mais reste utilisable au clavier */
+.nav-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.nav-toggle:focus-visible + .nav-burger {
+  outline: 3px solid var(--orange-deep);
+  outline-offset: 3px;
+}
+
+/* Bouton hamburger (3 traits dessinés en CSS) */
+.nav-burger {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--black);
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+.nav-burger:hover {
+  background: var(--orange-deep);
+}
+.nav-burger span,
+.nav-burger span::before,
+.nav-burger span::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cream);
+  transition: transform 0.25s ease, background-color 0.25s ease, top 0.25s ease;
+}
+.nav-burger span {
+  position: relative;
+}
+.nav-burger span::before,
+.nav-burger span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.nav-burger span::before { top: -6px; }
+.nav-burger span::after  { top: 6px; }
+
+/* Quand la case est cochée : les 3 traits deviennent une croix */
+.nav-toggle:checked + .nav-burger span {
+  background: transparent;
+}
+.nav-toggle:checked + .nav-burger span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.nav-toggle:checked + .nav-burger span::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Menu déroulant (mobile) : caché par défaut */
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 1rem 1.25rem 1.5rem;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(28, 23, 20, 0.1);
+  box-shadow: 0 20px 30px rgba(28, 23, 20, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+.nav-toggle:checked ~ .nav {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav__list a {
+  display: block;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid rgba(28, 23, 20, 0.08);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.nav__list a:hover {
+  color: var(--orange-deep);
+}
+
+
+/* 
+   6. HERO
+   L'image remplit toute la section (object-fit: cover) ; un dégradé sombre
+   par-dessus garantit un texte blanc toujours lisible */
+.hero {
+  position: relative;
+  isolation: isolate;                 /* garde les couches z-index à l'intérieur du hero */
+  display: grid;
+  align-items: center;
+  min-height: min(88vh, 760px);
+  padding-block: 5rem;
+  color: var(--white);
+}
+.hero__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--black);           /* fond de secours si l'image ne charge pas */
+}
+.hero::before {                       /* voile sombre */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg,
+              rgba(20, 15, 12, 0.85) 0%,
+              rgba(20, 15, 12, 0.6) 55%,
+              rgba(20, 15, 12, 0.3) 100%);
+}
+
+.hero__content {
+  max-width: 40rem;
+}
+.hero__title {
+  max-width: 13ch;
+  font-size: clamp(2.7rem, 8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1;
+}
+.hero__text {
+  max-width: 34rem;
+  margin-top: 1.5rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.9);
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* Seule animation d'entrée du site : les éléments du hero apparaissent à la suite */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero__title   { 
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.05s both; 
+}
+.hero__text    { 
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both; 
+}
+.hero__actions { 
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s both; 
+}
+
+
+/* 
+   7. BANDEAU DÉCORATIF
+   Motif de bandes noir / orange / crème, dessiné avec un dégradé répété.
+    */
+.pagne {
+  height: 16px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--black)  0 28px,
+    var(--orange) 28px 40px,
+    var(--cream)  40px 48px,
+    var(--orange) 48px 60px
+  );
+}
+
+
+/* 
+   8. NOS SPÉCIALITÉS (cartes)
+   Mobile : 1 colonne. Tablette : 2. Ordinateur : 3 (voir sections 14 et 15).
+    */
+.dishes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+.dish {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dish:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lift);
+}
+
+.dish__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--orange-pale);
+}
+.dish__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                  /* l'image remplit la zone sans se déformer */
+  transition: transform 0.6s ease;
+}
+.dish:hover .dish__media img {
+  transform: scale(1.07);
+}
+
+.dish__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.3rem 1.4rem 1.5rem;
+}
+.dish__name {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.dish__desc {
+  flex: 1;                            /* pousse le prix et le bouton en bas de carte */
+  color: var(--ink-soft);
+}
+.dish__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: 0.6rem;
+}
+.dish__price {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--orange-deep);
+}
+
+
+/* 
+   9. À PROPOS
+    */
+.about {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* L'image est posée sur un bloc orange décalé (le ::before) */
+.about__media {
+  position: relative;
+  margin: 0 20px 20px 0;
+}
+.about__media::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: -20px;
+  bottom: -20px;
+  border-radius: 28px;
+  background: var(--orange);
+}
+.about__media img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 28px;
+  background: var(--orange-pale);
+}
+
+.about__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.1rem;
+}
+.about__text p {
+  max-width: 34rem;
+  color: var(--ink-soft);
+}
+.about__text .btn {
+  margin-top: 0.5rem;
+}
+
+
+/* ==========================================================================
+   10. GALERIE
+   Grille de 2 colonnes (mobile/tablette) puis 4 colonnes (ordinateur).
+   Deux photos sont plus larges (.gallery__item--wide).
+   ========================================================================== */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 230px;
+  gap: 1rem;
+}
+.gallery__item {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--orange-pale);
+}
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+.gallery__item:hover img {
+  transform: scale(1.08);
+  filter: saturate(1.15);
+}
+
+
+/* ==========================================================================
+   11. POURQUOI NOUS CHOISIR
+   ========================================================================== */
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.reason {
+  padding: 2rem 1.75rem;
+  border: 1px solid rgba(251, 244, 232, 0.16);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+.reason:hover {
+  border-color: var(--orange);
+  background: rgba(251, 244, 232, 0.05);
+  transform: translateY(-4px);
+}
+.reason__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--black);
+}
+.reason h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.reason p {
+  margin-top: 0.7rem;
+  color: rgba(251, 244, 232, 0.78);
+}
+
+
+/* ==========================================================================
+   12. CONTACT ET FORMULAIRE
+   ========================================================================== */
+.contact {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+/* Liste d'informations (adresse, téléphone, e-mail, horaires) */
+.info {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+}
+.info__row {
+  padding-left: 1.1rem;
+  border-left: 4px solid var(--orange);
+}
+.info dt {
+  font-weight: 700;
+  color: var(--orange-deep);
+}
+.info dd {
+  margin: 0.2rem 0 0;
+  color: var(--ink-soft);
+}
+.info a {
+  text-decoration-color: var(--orange);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.info a:hover {
+  color: var(--orange-deep);
+}
+
+/* Formulaire */
+.form {
+  display: grid;
+  gap: 1.1rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--cream);
+}
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+.form__field {
+  display: grid;
+  gap: 0.4rem;
+}
+.form label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 2px solid rgba(28, 23, 20, 0.14);
+  border-radius: 14px;
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--black);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form textarea {
+  resize: vertical;
+}
+.form input:hover,
+.form select:hover,
+.form textarea:hover {
+  border-color: rgba(28, 23, 20, 0.35);
+}
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(242, 106, 27, 0.25);
+}
+.form .btn {
+  justify-self: start;
+}
+
+
+/* 
+   13. PIED DE PAGE
+    */
+.site-footer {
+  padding-top: clamp(3rem, 7vw, 5rem);
+  background: var(--black);
+  color: rgba(251, 244, 232, 0.8);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+}
+.footer__brand p {
+  max-width: 22rem;
+  margin-top: 1rem;
+}
+.footer__title {
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+.footer__nav ul,
+.footer__social ul {
+  display: grid;
+  gap: 0.6rem;
+}
+.site-footer a {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer__nav a:hover,
+.footer__social a:hover,
+.footer__bottom a:hover {
+  color: var(--orange);
+}
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid rgba(251, 244, 232, 0.16);
+  font-size: 0.9rem;
+}
+
+
+/* ==========================================================================
+   14. TABLETTE (à partir de 640px)
+   ========================================================================== */
+@media (min-width: 640px) {
+
+  .dishes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery__item--wide {
+    grid-column: span 2;              /* ces photos occupent toute la largeur */
+  }
+
+  .reasons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+}
+
+
+/* 
+   15. ORDINATEUR (à partir de 960px)
+   */
+@media (min-width: 960px) {
+
+  /* Navigation horizontale : on cache le hamburger et on remet le menu en ligne */
+  .nav-burger {
+    display: none;
+  }
+  .nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .nav__list {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .nav__list a {
+    padding: 0.5rem 0.9rem;
+    border: 0;
+    border-radius: 999px;
+    font-size: 0.98rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .nav__list a:hover {
+    background: var(--orange-pale);
+    color: var(--black);
+  }
+
+  .dishes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 5rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .contact {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+
+/* 
+   16. PRÉFÉRENCES D'ACCESSIBILITÉ
+   Si la personne a demandé "moins d'animations" dans son système,
+   on désactive les animations et les mouvements.
+   */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
